@@ -17,6 +17,9 @@ my_img4 = ImageTk.PhotoImage(Image.open("images/image4.png"))
 # adds the images to a list
 image_list = [my_img1, my_img2, my_img3, my_img4]
 
+# creates a status bar to show place in list of images
+status = Label(root, text="Image 1 of " + str(len(image_list)), bd=1, relief=SUNKEN, anchor=W)
+
 # creates a label with an image
 my_lable = Label(image= my_img1)
 # adds the label to the screen
@@ -49,6 +52,11 @@ def forward(image_number):
     button_back.grid(row=1, column=0)
     button_forward.grid(row=1, column=2)
 
+    # update status bar
+    status = Label(root, text="Image " + str(image_number) + " of"   + str(len(image_list)), bd=1, relief=SUNKEN, anchor=W)
+    status.grid(row=2, column=0, columnspan=3, sticky=W + E)
+
+
 # this function allows for de-incrementing though the images
 def back(image_number):
     global my_lable
@@ -67,6 +75,12 @@ def back(image_number):
     button_back.grid(row=1, column=0)
     button_forward.grid(row=1, column=2)
 
+    # update status bar
+    status = Label(root, text="Image " + str(image_number) + " of" + str(len(image_list)), bd=1, relief=SUNKEN,
+                   anchor=W)
+    status.grid(row=2, column=0, columnspan=3, sticky=W + E)
+
+
 # create the initial navigation buttons
 button_back = Button(root, text="<<", command=back, state=DISABLED)
 button_quit = Button(root, text="Exit Program", command=root.quit)
@@ -75,7 +89,9 @@ button_forward = Button(root, text=">>", command= lambda : forward(2))
 # adds the initial navigation buttons to the screen
 button_back.grid(row=1, column=0)
 button_quit.grid(row=1, column=1)
-button_forward.grid(row=1, column=2)
+button_forward.grid(row=1, column=2, pady=10)
+# adds the status bar to the main window
+status.grid(row=2, column=0, columnspan=3, sticky=W+E)
 
 # main loop to keep window open
 root.mainloop()
